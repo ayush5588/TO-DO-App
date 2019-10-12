@@ -6,6 +6,12 @@ let server=express() // start the server
 
 let db  // Database variable is declared globaly
 
+let portnum=process.env.PORT
+if(portnum==null || portnum==""){
+  portnum=3000
+}
+
+
 server.use(express.static('public'))  // In this way we can access the files of the 'public' folder from the 
                                       // root of the server. 
 
@@ -13,7 +19,7 @@ let connectionString='mongodb+srv://ayush5588:ayush5588@cluster0-ktpcz.mongodb.n
 
 mongodb.connect(connectionString,{useNewUrlParser: true},function(err,client){
     db=client.db()        // here our database is created
-    server.listen(3000)   // added here instead of last because we only want to start listening when the connection
+    server.listen(portnum)   // added here instead of last because we only want to start listening when the connection
                           // to database is established
 })
 
